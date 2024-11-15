@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Estudiantes</title>
+    <script>
+        async function cargarCursos() {
+            const response = await fetch("obtener_cursos.php");
+            const cursos = await response.json();
+            const selectCurso = document.getElementById("curso_id");
+            cursos.forEach(curso => {
+                const option = document.createElement("option");
+                option.value = curso.id;
+                option.text = curso.nombre;
+                selectCurso.add(option);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", cargarCursos);
+    </script>
+</head>
+<body>
+    <h1>Registro de Estudiante</h1>
+    <form action="insertar_estudiante.php" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required><br>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="apellido" id="apellido" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required><br>
+
+        <label for="curso_id">Curso:</label>
+        <select name="curso_id" id="curso_id" required>
+            <option value="">Selecciona un curso</option>
+        </select><br><br>
+
+        <button type="submit">Registrar Estudiante</button>
+    </form>
+</body>
+</html>
